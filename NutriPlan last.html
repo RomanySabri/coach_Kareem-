@@ -65,7 +65,7 @@
     }
 
     .hdr-l h1 {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       color: #ffffff;
       letter-spacing: 1px
@@ -76,7 +76,7 @@
     }
 
     .hdr-l .sub {
-      font-size: 9px;
+      font-size: 11px;
       color: #a0a0a0;
       letter-spacing: 2px;
       text-transform: uppercase
@@ -92,7 +92,7 @@
       cursor: pointer;
       border-radius: 8px;
       font-family: 'Cairo';
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       padding: 8px 14px;
       display: flex;
@@ -154,7 +154,7 @@
       padding: 8px 2px 6px;
       border-radius: 8px;
       font-family: 'Cairo';
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       display: flex;
       flex-direction: column;
@@ -164,7 +164,7 @@
     }
 
     .tb .ti {
-      font-size: 18px
+      font-size: 20px
     }
 
     .tb.a {
@@ -196,14 +196,14 @@
     }
 
     .st h2 {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: 1px
     }
 
     .st .si {
-      font-size: 20px;
+      font-size: 22px;
       color: #f01818
     }
 
@@ -214,7 +214,7 @@
 
     .fd label {
       display: block;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       color: #f01818;
       margin-bottom: 4px
@@ -229,7 +229,7 @@
       border-radius: 8px;
       background: #0a0a0a;
       font-family: 'Cairo';
-      font-size: 14px;
+      font-size: 16px;
       color: #ffffff;
       outline: none;
       direction: rtl;
@@ -286,14 +286,14 @@
       padding: 8px 4px;
       border-radius: 8px;
       text-align: center;
-      font-size: 9px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
       border: 1px solid;
-      text-transform: uppercase
+      text-transform: none
     }
 
     .mp .mv {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 800;
       display: block;
       margin-bottom: 2px
@@ -336,14 +336,14 @@
     }
 
     .dt .di {
-      font-size: 9px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
       color: #a0a0a0;
-      text-transform: uppercase
+      text-transform: none
     }
 
     .di .dv {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       display: block;
       margin-bottom: 2px
@@ -385,7 +385,7 @@
       cursor: pointer;
       background: transparent;
       color: #ff4d4d;
-      font-size: 10px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: center
@@ -403,7 +403,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 800
     }
 
@@ -415,7 +415,7 @@
       background: transparent;
       color: #f01818;
       font-family: 'Cairo';
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s
@@ -475,7 +475,7 @@
     }
 
     .phl {
-      font-size: 11px;
+      font-size: 13px;
       color: #f01818;
       font-weight: 600
     }
@@ -489,7 +489,7 @@
       color: #f01818;
       padding: 12px 24px;
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       border: 1px solid #f01818;
       box-shadow: 0 0 15px rgba(240, 24, 24, 0.4);
@@ -753,10 +753,10 @@
     }
 
     .pp-mb .pl2 {
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase
+      letter-spacing: 0;
+      text-transform: none
     }
 
     .mb-c {
@@ -884,11 +884,11 @@
       padding: 8px 4px;
       border-radius: 4px;
       text-align: center;
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 800;
       border: 1px solid;
       background: #0a0a0a;
-      text-transform: uppercase
+      text-transform: none
     }
 
     .pp-meal .mmp .mmv {
@@ -1077,13 +1077,13 @@
     <div class="fd"><label>البديل</label><textarea rows="2" oninput="S.np.meals[${i}].alt=this.value">${e(m.alt)}</textarea></div>
     <div class="g4">
     <div class="fd"><label>🥩بروتين</label><input type="number" value="${e(m.pro)}" oninput="S.np.meals[${i}].pro=this.value"></div>
-    <div class="fd"><label>🍞كاربز</label><input type="number" value="${e(m.carb)}" oninput="S.np.meals[${i}].carb=this.value"></div>
+    <div class="fd"><label>🍞كارب</label><input type="number" value="${e(m.carb)}" oninput="S.np.meals[${i}].carb=this.value"></div>
     <div class="fd"><label>🫒دهون</label><input type="number" value="${e(m.fat)}" oninput="S.np.meals[${i}].fat=this.value"></div>
-    <div class="fd"><label>🔥كالوري</label><input type="number" value="${e(m.cal)}" oninput="S.np.meals[${i}].cal=this.value"></div></div>
-    ${(n(m.cal) || n(m.pro)) ? `<div class="macro-row"><div class="mp mp-p"><span class="mv">${n(m.pro)}g</span>Pro</div><div class="mp mp-k"><span class="mv">${n(m.carb)}g</span>Carb</div><div class="mp mp-f"><span class="mv">${n(m.fat)}g</span>Fat</div><div class="mp mp-c"><span class="mv">${n(m.cal)}</span>Cal</div></div>` : ''}
+    <div class="fd"><label>🔥سعرات</label><input type="number" value="${e(m.cal)}" oninput="S.np.meals[${i}].cal=this.value"></div></div>
+    ${(n(m.cal) || n(m.pro)) ? `<div class="macro-row"><div class="mp mp-p"><span class="mv">${n(m.pro)}g</span>بروتين</div><div class="mp mp-k"><span class="mv">${n(m.carb)}g</span>كارب</div><div class="mp mp-f"><span class="mv">${n(m.fat)}g</span>دهون</div><div class="mp mp-c"><span class="mv">${n(m.cal)}</span>سعرات</div></div>` : ''}
     </div></div>`).join('')}
     <button class="ba" onclick="S.np.meals.push({name:'',items:'',alt:'',cal:'',pro:'',carb:'',fat:''});R()">+ إضافة وجبة</button>
-    ${(t.cal) ? `<div class="dt"><div class="di di-p"><span class="dv">${t.pro}g</span>بروتين</div><div class="di di-k"><span class="dv">${t.carb}g</span>كاربز</div><div class="di di-f"><span class="dv">${t.fat}g</span>دهون</div><div class="di di-c"><span class="dv">${t.cal}</span>كالوري</div></div>` : ''}`;
+    ${(t.cal) ? `<div class="dt"><div class="di di-p"><span class="dv">${t.pro}g</span>بروتين</div><div class="di di-k"><span class="dv">${t.carb}g</span>كارب</div><div class="di di-f"><span class="dv">${t.fat}g</span>دهون</div><div class="di di-c"><span class="dv">${t.cal}</span>سعرات</div></div>` : ''}`;
       }
 
       if (S.tab === 'rules') return `<div class="st"><span class="si">📋</span><h2>التعليمات</h2></div>
@@ -1177,10 +1177,10 @@
           </div>
         </div>
         ${hm ? `<div class="pp-mbar" style="margin-top:14px">
-          <div class="pp-mb mb-p"><span class="pv2">${t.pro}g</span><span class="pl2">بروتين</span></div>
-          <div class="pp-mb mb-k"><span class="pv2">${t.carb}g</span><span class="pl2">كارب</span></div>
-          <div class="pp-mb mb-f"><span class="pv2">${t.fat}g</span><span class="pl2">دهون</span></div>
           <div class="pp-mb mb-c"><span class="pv2">${t.cal}</span><span class="pl2">سعرات</span></div>
+          <div class="pp-mb mb-f"><span class="pv2">${t.fat}g</span><span class="pl2">دهون</span></div>
+          <div class="pp-mb mb-k"><span class="pv2">${t.carb}g</span><span class="pl2">كارب</span></div>
+          <div class="pp-mb mb-p"><span class="pv2">${t.pro}g</span><span class="pl2">بروتين</span></div>
         </div>`: ''}
         
       </div>
@@ -1208,26 +1208,20 @@
         <div class="mn">${e(m.name) || 'وجبة ' + (i + 1)}</div>
         ${L(m.items).map(x => `<div class="mi">• ${e(x)}</div>`).join('')}
         ${hmc ? `<div class="mmc">
-          <div class="mmp mb-p"><span class="mmv">${n(m.pro) || 0}g</span>بروتين</div>
-          <div class="mmp mb-k"><span class="mmv">${n(m.carb) || 0}g</span>كارب</div>
-          <div class="mmp mb-f"><span class="mmv">${n(m.fat) || 0}g</span>دهون</div>
           <div class="mmp mb-c"><span class="mmv">${n(m.cal) || 0}</span>سعرات</div>
+          <div class="mmp mb-f"><span class="mmv">${n(m.fat) || 0}g</span>دهون</div>
+          <div class="mmp mb-k"><span class="mmv">${n(m.carb) || 0}g</span>كارب</div>
+          <div class="mmp mb-p"><span class="mmv">${n(m.pro) || 0}g</span>بروتين</div>
         </div>`: ''}
         ${L(m.alt).length ? `<div class="mad">— البديل —</div>${L(m.alt).map(x => `<div class="ma">• ${e(x)}</div>`).join('')}` : ''}
       </div>`}).join('')}
-      ${hm ? `<div class="pp-mbar" style="margin-top:8px">
-        <div class="pp-mb mb-p"><span class="pv2">${t.pro}g</span><span class="pl2">بروتين</span></div>
-        <div class="pp-mb mb-k"><span class="pv2">${t.carb}g</span><span class="pl2">كارب</span></div>
-        <div class="pp-mb mb-f"><span class="pv2">${t.fat}g</span><span class="pl2">دهون</span></div>
-        <div class="pp-mb mb-c"><span class="pv2">${t.cal}</span><span class="pl2">المجموع</span></div>
-      </div>`: ''}
       
     </div></div>
 
     <!-- P4: GUIDELINES -->
     <div class="pp" id="p4">${bg()}<div class="pp-ct">
       <div class="pp-ph"><h2>التعليمات والمكملات</h2><div class="phs">G U I D E L I N E S</div><div class="phl2"></div></div>
-      ${[['اقتراح بالمكملات & الفيتامينات (( اختياري ))', np.supps, 'ss'], ['💊 الفيتامينات', np.vitamins, 'sv'], ['✅ الاهتمام', np.focus, 'so'], ['⚠️ التقليل', np.reduce, 'sd'], ['🚫 الممنوع', np.forbidden, 'sf']].map(([tt, ct, cls]) => L(ct).length ? `<div class="pp-sec ${cls}"><div class="stt">${tt}</div>${L(ct).map(x => `<div class="si2">• ${e(x)}</div>`).join('')}</div>` : ``).join('')}
+      ${[['اقتراح بالمكملات  (( اختياري ))', np.supps, 'ss'], [' اقتراح الفيتامينات (( اختياري ))', np.vitamins, 'sv'], ['✅ الاهتمام', np.focus, 'so'], ['⚠️ التقليل', np.reduce, 'sd'], ['🚫 الممنوع', np.forbidden, 'sf']].map(([tt, ct, cls]) => L(ct).length ? `<div class="pp-sec ${cls}"><div class="stt">${tt}</div>${L(ct).map(x => `<div class="si2">• ${e(x)}</div>`).join('')}</div>` : ``).join('')}
       
     </div></div>
 
