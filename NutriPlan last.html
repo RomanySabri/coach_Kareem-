@@ -1157,7 +1157,7 @@
     <div class="pp" id="p3_${pageIndex}">
       ${bg()}
       <div class="pp-ct">
-        <div class="pp-ph"><h2>خطة الوجبات ${mealPages.length > 1 ? `(${pageIndex + 1})` : ''}</h2><div class="phs">M E A L &nbsp; P L A N</div><div class="phl2"></div></div>
+        <div class="pp-ph"><h2>خطة الوجبات</h2><div class="phs">M E A L &nbsp; P L A N</div><div class="phl2"></div></div>
         ${pageMeals.map((m, idx) => {
           const actualIndex = pageIndex * MAX_MEALS_PER_PAGE + idx;
           const hmc = n(m.cal) || n(m.pro); return `
@@ -1176,7 +1176,7 @@
     </div>`).join('');
 
         let pagesIds = ['p1', 'p2'];
-        for(let i=0; i<mealPages.length; i++) pagesIds.push('p3_' + i);
+        for (let i = 0; i < mealPages.length; i++) pagesIds.push('p3_' + i);
         pagesIds.push('p4', 'p6');
 
         box.innerHTML = `
