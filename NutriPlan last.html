@@ -1135,7 +1135,7 @@
 
         const coverBg = coachPhoto
           ? `<div style="position:absolute;inset:0;background:url('${coachPhoto}') center top/cover no-repeat;"></div>
-               <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0) 50%, rgba(10,10,10,0.4) 85%, #0a0a0a 100%);"></div>`
+               <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0) 50%, rgba(10,10,10,0.6) 75%, #0a0a0a 100%);"></div>`
           : `<div style="position:absolute;inset:0;background:#0a0a0a;"></div>`;
 
         // Parse FAQ
@@ -1145,42 +1145,77 @@
           return { q: lines[0], a: lines.slice(1).join(' ') };
         }).filter(Boolean);
 
+        // Chunk meals
+        const MAX_MEALS_PER_PAGE = 3;
+        const mealPages = [];
+        for (let i = 0; i < np.meals.length; i += MAX_MEALS_PER_PAGE) {
+          mealPages.push(np.meals.slice(i, i + MAX_MEALS_PER_PAGE));
+        }
+
+        const mealHtml = mealPages.map((pageMeals, pageIndex) => `
+    <!-- MEALS PAGE ${pageIndex + 1} -->
+    <div class="pp" id="p3_${pageIndex}">
+      ${bg()}
+      <div class="pp-ct">
+        <div class="pp-ph"><h2>خطة الوجبات ${mealPages.length > 1 ? `(${pageIndex + 1})` : ''}</h2><div class="phs">M E A L &nbsp; P L A N</div><div class="phl2"></div></div>
+        ${pageMeals.map((m, idx) => {
+          const actualIndex = pageIndex * MAX_MEALS_PER_PAGE + idx;
+          const hmc = n(m.cal) || n(m.pro); return `
+        <div class="pp-meal" style="flex-shrink:0;"><div class="mmb">${actualIndex + 1}</div>
+          <div class="mn">${e(m.name) || 'وجبة ' + (actualIndex + 1)}</div>
+          ${L(m.items).map(x => `<div class="mi">• ${e(x)}</div>`).join('')}
+          ${hmc ? `<div class="mmc">
+            <div class="mmp mb-c"><span class="mmv">${n(m.cal) || 0}</span>سعرات</div>
+            <div class="mmp mb-f"><span class="mmv">${n(m.fat) || 0}g</span>دهون</div>
+            <div class="mmp mb-k"><span class="mmv">${n(m.carb) || 0}g</span>كارب</div>
+            <div class="mmp mb-p"><span class="mmv">${n(m.pro) || 0}g</span>بروتين</div>
+          </div>`: ''}
+          ${L(m.alt).length ? `<div class="mad">— البديل —</div>${L(m.alt).map(x => `<div class="ma">• ${e(x)}</div>`).join('')}` : ''}
+        </div>`}).join('')}
+      </div>
+    </div>`).join('');
+
+        let pagesIds = ['p1', 'p2'];
+        for(let i=0; i<mealPages.length; i++) pagesIds.push('p3_' + i);
+        pagesIds.push('p4', 'p6');
+
         box.innerHTML = `
     <!-- P1: COVER -->
     <div class="pp" id="p1">
       ${coverBg}
       <div class="pp-bdr"></div>
-      <div class="pp-ct" style="justify-content: flex-end; padding-bottom: 50px;">
+      <div class="pp-ct" style="padding-top: 40px; padding-bottom: 50px;">
         
-        <div class="pp-badge" style="margin-top:auto;">HEAD COACH</div>
-        <div class="pp-cname">${e(o.name)}</div>
-        <div class="pp-csub" style="direction:ltr; display:flex; align-items:center; justify-content:center;">
+        <div style="flex-grow: 1;"></div>
+        <div class="pp-badge" style="flex-shrink:0;">HEAD COACH</div>
+        <div class="pp-cname" style="flex-shrink:0;">${e(o.name)}</div>
+        <div class="pp-csub" style="direction:ltr; display:flex; align-items:center; justify-content:center;flex-shrink:0;">
           ${e(o.cert)} <span style="margin:0 10px;color:#f01818">|</span>
           <svg style="margin-right:4px" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.82 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg> ${e(o.phone)}
           <span style="margin:0 10px;color:#f01818">|</span>
           <svg style="margin-right:4px" width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> ${e(o.wa)}
         </div>
         <!-- Certificates on Cover -->
-        <div style="width:85%;margin-top:20px;background:rgba(10,10,10,0.85);border:1px solid rgba(240,24,24,0.4);border-radius:12px;padding:16px 20px;">
-          <div class="pp-ctitle" style="margin-bottom:10px;font-size:14px;text-shadow:none">الشهادات والخبرات</div>
-          ${L(o.certs).map(c => `<div class="cert-d" style="color:#ffffff;font-size:13px;line-height:1.7;margin-bottom:4px;font-weight:600">• ${e(c)}</div>`).join('')}
+        <div style="width:85%;margin-top:15px;background:rgba(10,10,10,0.85);border:1px solid rgba(240,24,24,0.4);border-radius:12px;padding:12px 20px;flex-shrink:0;">
+          <div class="pp-ctitle" style="margin-bottom:8px;font-size:14px;text-shadow:none">الشهادات والخبرات</div>
+          ${L(o.certs).map(c => `<div class="cert-d" style="color:#ffffff;font-size:12px;line-height:1.6;margin-bottom:4px;font-weight:600">• ${e(c)}</div>`).join('')}
         </div>
 
-        <div class="pp-ccard" style="margin-top:14px;padding:16px 30px;">
-          <div class="pp-ctitle">بيانات المشترك</div>
-          <div class="pp-cgrid">
-            <div class="pp-citem" style="padding:6px 0"><span class="pp-cil">الاسم</span><span class="pp-civ">${e(c.name) || '—'}</span></div>
-            <div class="pp-citem" style="padding:6px 0"><span class="pp-cil">العمر</span><span class="pp-civ">${c.age ? c.age + ' سنة' : '—'}</span></div>
-            <div class="pp-citem" style="padding:6px 0"><span class="pp-cil">الطول</span><span class="pp-civ">${c.height ? c.height + ' سم' : '—'}</span></div>
-            <div class="pp-citem" style="padding:6px 0"><span class="pp-cil">الوزن</span><span class="pp-civ">${c.weight || '—'} كجم</span></div>
-            <div class="pp-citem" style="grid-column: span 2; padding:6px 0; border-top:1px solid rgba(240,24,24,0.1); margin-top:4px;"><span class="pp-cil">الهدف</span><span class="pp-civ">${e(c.goal)}</span></div>
+        <div class="pp-ccard" style="margin-top:12px;padding:12px 30px;flex-shrink:0;">
+          <div class="pp-ctitle" style="margin-bottom:12px;">بيانات المشترك</div>
+          <div class="pp-cgrid" style="gap:10px 20px;">
+            <div class="pp-citem" style="padding:4px 0"><span class="pp-cil">الاسم</span><span class="pp-civ">${e(c.name) || '—'}</span></div>
+            <div class="pp-citem" style="padding:4px 0"><span class="pp-cil">العمر</span><span class="pp-civ">${c.age ? c.age + ' سنة' : '—'}</span></div>
+            <div class="pp-citem" style="padding:4px 0"><span class="pp-cil">الطول</span><span class="pp-civ">${c.height ? c.height + ' سم' : '—'}</span></div>
+            <div class="pp-citem" style="padding:4px 0"><span class="pp-cil">الوزن</span><span class="pp-civ">${c.weight || '—'} كجم</span></div>
+            <div class="pp-citem" style="grid-column: span 2; padding:4px 0; border-top:1px solid rgba(240,24,24,0.1); margin-top:4px;"><span class="pp-cil">الهدف</span><span class="pp-civ">${e(c.goal)}</span></div>
           </div>
         </div>
-        ${hm ? `<div class="pp-mbar" style="margin-top:14px">
-          <div class="pp-mb mb-c"><span class="pv2">${t.cal}</span><span class="pl2">سعرات</span></div>
-          <div class="pp-mb mb-f"><span class="pv2">${t.fat}g</span><span class="pl2">دهون</span></div>
-          <div class="pp-mb mb-k"><span class="pv2">${t.carb}g</span><span class="pl2">كارب</span></div>
-          <div class="pp-mb mb-p"><span class="pv2">${t.pro}g</span><span class="pl2">بروتين</span></div>
+        ${hm ? `<div class="pp-mbar" style="margin-top:12px;flex-shrink:0;">
+          <div class="pp-mb mb-c"><span class="pv2" style="font-size:22px;">${t.cal}</span><span class="pl2">سعرات</span></div>
+          <div class="pp-mb mb-f"><span class="pv2" style="font-size:22px;">${t.fat}g</span><span class="pl2">دهون</span></div>
+          <div class="pp-mb mb-k"><span class="pv2" style="font-size:22px;">${t.carb}g</span><span class="pl2">كارب</span></div>
+          <div class="pp-mb mb-p"><span class="pv2" style="font-size:22px;">${t.pro}g</span><span class="pl2">بروتين</span></div>
         </div>`: ''}
         
       </div>
@@ -1199,29 +1234,12 @@
       </div>
     </div>
 
-    <!-- P3: MEALS -->
-    <div class="pp" id="p3">${bg()}<div class="pp-ct">
-      <div class="pp-ph"><h2>خطة الوجبات</h2><div class="phs">M E A L &nbsp; P L A N</div><div class="phl2"></div></div>
-      ${np.meals.map((m, i) => {
-          const hmc = n(m.cal) || n(m.pro); return `
-      <div class="pp-meal"><div class="mmb">${i + 1}</div>
-        <div class="mn">${e(m.name) || 'وجبة ' + (i + 1)}</div>
-        ${L(m.items).map(x => `<div class="mi">• ${e(x)}</div>`).join('')}
-        ${hmc ? `<div class="mmc">
-          <div class="mmp mb-c"><span class="mmv">${n(m.cal) || 0}</span>سعرات</div>
-          <div class="mmp mb-f"><span class="mmv">${n(m.fat) || 0}g</span>دهون</div>
-          <div class="mmp mb-k"><span class="mmv">${n(m.carb) || 0}g</span>كارب</div>
-          <div class="mmp mb-p"><span class="mmv">${n(m.pro) || 0}g</span>بروتين</div>
-        </div>`: ''}
-        ${L(m.alt).length ? `<div class="mad">— البديل —</div>${L(m.alt).map(x => `<div class="ma">• ${e(x)}</div>`).join('')}` : ''}
-      </div>`}).join('')}
-      
-    </div></div>
+    ${mealHtml}
 
     <!-- P4: GUIDELINES -->
     <div class="pp" id="p4">${bg()}<div class="pp-ct">
       <div class="pp-ph"><h2>التعليمات والمكملات</h2><div class="phs">G U I D E L I N E S</div><div class="phl2"></div></div>
-      ${[['اقتراح بالمكملات  (( اختياري ))', np.supps, 'ss'], [' اقتراح الفيتامينات (( اختياري ))', np.vitamins, 'sv'], ['✅ الاهتمام', np.focus, 'so'], ['⚠️ التقليل', np.reduce, 'sd'], ['🚫 الممنوع', np.forbidden, 'sf']].map(([tt, ct, cls]) => L(ct).length ? `<div class="pp-sec ${cls}"><div class="stt">${tt}</div>${L(ct).map(x => `<div class="si2">• ${e(x)}</div>`).join('')}</div>` : ``).join('')}
+      ${[['اقتراح بالمكملات  (( اختياري ))', np.supps, 'ss'], [' اقتراح الفيتامينات (( اختياري ))', np.vitamins, 'sv'], ['✅ الاهتمام', np.focus, 'so'], ['⚠️ التقليل', np.reduce, 'sd'], ['🚫 الممنوع', np.forbidden, 'sf']].map(([tt, ct, cls]) => L(ct).length ? `<div class="pp-sec ${cls}" style="flex-shrink:0;"><div class="stt">${tt}</div>${L(ct).map(x => `<div class="si2">• ${e(x)}</div>`).join('')}</div>` : ``).join('')}
       
     </div></div>
 
@@ -1229,20 +1247,18 @@
     <div class="pp" id="p6">${bg()}<div class="pp-ct">
       <div class="pp-ph"><h2>أسئلة شائعة عن الدايت</h2><div class="phs">F . A . Q</div><div class="phl2"></div></div>
       <div class="pp-text">
-        ${faqItems.map(f => `<div class="qa"><div class="qq">❓ ${e(f.q)}</div><div class="qa-a">${e(f.a)}</div></div>`).join('')}
+        ${faqItems.map(f => `<div class="qa" style="flex-shrink:0;"><div class="qq">❓ ${e(f.q)}</div><div class="qa-a">${e(f.a)}</div></div>`).join('')}
       </div>
       
-    </div></div>`;
+    </div></div>`
 
         await document.fonts.ready;
         await new Promise(r => setTimeout(r, 700));
 
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        const pages = ['p1', 'p2', 'p3', 'p4', 'p6'];
-
-        for (let i = 0; i < pages.length; i++) {
-          const el = document.getElementById(pages[i]);
+        for (let i = 0; i < pagesIds.length; i++) {
+          const el = document.getElementById(pagesIds[i]);
           if (!el) continue;
           const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#0a0a0a', logging: false, width: 794, height: 1123, windowWidth: 794 });
           const img = canvas.toDataURL('image/jpeg', 0.93);
