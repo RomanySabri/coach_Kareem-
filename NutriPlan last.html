@@ -636,7 +636,7 @@
     }
 
     .pp-cname {
-      font-size: 52px;
+      font-size: 36px;
       font-weight: 900;
       color: #f01818;
       text-align: center;
@@ -929,7 +929,7 @@
     }
 
     .pp-sec .stt {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       margin-bottom: 6px
     }
@@ -956,9 +956,9 @@
 
     .pp-sec .si2 {
       color: #ffffff;
-      font-size: 14px;
+      font-size: 16.5px;
       padding: 2px 0;
-      line-height: 1.6
+      line-height: 1.7
     }
 
     /* Intro/FAQ text page */
@@ -970,7 +970,7 @@
 
     .pp-text h3 {
       color: #f01818;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       margin: 20px 0 12px;
       display: inline-block
@@ -978,7 +978,7 @@
 
     .pp-text p {
       color: #ffffff;
-      font-size: 15px;
+      font-size: 17px;
       line-height: 1.8;
       margin-bottom: 12px;
       text-align: justify
@@ -995,14 +995,14 @@
 
     .pp-text .qq {
       color: #f01818;
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 800;
       margin-bottom: 8px
     }
 
     .pp-text .qa-a {
       color: #ffffff;
-      font-size: 15px;
+      font-size: 17px;
       line-height: 1.9
     }
   </style>
@@ -1175,7 +1175,7 @@
       </div>
     </div>`).join('');
 
-        let pagesIds = ['p1', 'p2'];
+        let pagesIds = ['p1', 'p2_intro', 'p2_nutrition'];
         for (let i = 0; i < mealPages.length; i++) pagesIds.push('p3_' + i);
         pagesIds.push('p4', 'p6');
 
@@ -1184,10 +1184,9 @@
     <div class="pp" id="p1">
       ${coverBg}
       <div class="pp-bdr"></div>
-      <div class="pp-ct" style="padding-top: 40px; padding-bottom: 50px;">
+      <div class="pp-ct" style="padding-top: 30px; padding-bottom: 50px;">
         
         <div style="flex-grow: 1;"></div>
-        <div class="pp-badge" style="flex-shrink:0;">HEAD COACH</div>
         <div class="pp-cname" style="flex-shrink:0;">${e(o.name)}</div>
         <div class="pp-csub" style="direction:ltr; display:flex; align-items:center; justify-content:center;flex-shrink:0;">
           ${e(o.cert)} <span style="margin:0 10px;color:#f01818">|</span>
@@ -1221,18 +1220,23 @@
       </div>
     </div>
 
-    <!-- P2: INTRO + NUTRITION INFO -->
-    <div class="pp" id="p2">${bg()}<div class="pp-ct">
+    <!-- P2: INTRO -->
+    <div class="pp" id="p2_intro">${bg()}<div class="pp-ct">
       <div class="pp-ph"><h2>مقدمة عن النظام</h2><div class="phs">I N T R O D U C T I O N</div><div class="phl2"></div></div>
+      <div class="pp-text" style="margin-top: 30px;">
+        <h3 style="font-size: 26px; margin-bottom: 20px;">مقدمة عامة</h3>
+        ${(o.intro || '').split('\n\n').map(p => `<p style="font-size: 19px; line-height: 2;">${e(p).replace(/\n/g, '<br>')}</p>`).join('')}
+      </div>
+    </div></div>
+
+    <!-- P2: NUTRITION INFO -->
+    <div class="pp" id="p2_nutrition">${bg()}<div class="pp-ct">
+      <div class="pp-ph"><h2>معلومات عن التغذية</h2><div class="phs">N U T R I T I O N &nbsp; I N F O</div><div class="phl2"></div></div>
       <div class="pp-text">
-        <h3>مقدمة عامة</h3>
-        ${(o.intro || '').split('\n\n').map(p => `<p>${e(p).replace(/\n/g, '<br>')}</p>`).join('')}
         <h3 style="margin-top:18px">معلومات عن التغذية</h3>
         ${(o.nutritionInfo || '').split('\n\n').map(p => `<p>${e(p).replace(/\n/g, '<br>')}</p>`).join('')}
       </div>
-        
-      </div>
-    </div>
+    </div></div>
 
     ${mealHtml}
 
